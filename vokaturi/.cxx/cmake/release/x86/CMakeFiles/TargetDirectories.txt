@@ -1,0 +1,3 @@
+C:/Users/aljapalik/AndroidStudioProjects/TEST/VokaturiAndroid/vokaturi/.cxx/cmake/release/x86/CMakeFiles/vokaturi-lib.dir
+C:/Users/aljapalik/AndroidStudioProjects/TEST/VokaturiAndroid/vokaturi/.cxx/cmake/release/x86/CMakeFiles/edit_cache.dir
+C:/Users/aljapalik/AndroidStudioProjects/TEST/VokaturiAndroid/vokaturi/.cxx/cmake/release/x86/CMakeFiles/rebuild_cache.dir

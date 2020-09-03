@@ -1,0 +1,52 @@
+{
+  "stringTable": {
+    "0": "C:/Users/aljapalik/AndroidStudioProjects/TEST/VokaturiAndroid/vokaturi/.cxx/cmake/release/x86",
+    "1": "--target=i686-none-linux-android16 --gcc-toolchain=C:/Users/aljapalik/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/aljapalik/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dvokaturi_lib_EXPORTS -I../../../../src/main/cpp -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c++11 -std=c++11 -O2 -DNDEBUG -fPIC",
+    "2": "--target=i686-none-linux-android16 --gcc-toolchain=C:/Users/aljapalik/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=C:/Users/aljapalik/AppData/Local/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dvokaturi_lib_EXPORTS -I../../../../src/main/cpp -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -O2 -DNDEBUG -fPIC"
+  },
+  "buildFiles": [
+    "C:\\Users\\aljapalik\\AndroidStudioProjects\\TEST\\VokaturiAndroid\\vokaturi\\CMakeLists.txt",
+    "C:\\Users\\aljapalik\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\android.toolchain.cmake",
+    "C:\\Users\\aljapalik\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\build\\cmake\\platforms.cmake"
+  ],
+  "cleanCommands": [
+    "C:\\Users\\aljapalik\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\aljapalik\\AndroidStudioProjects\\TEST\\VokaturiAndroid\\vokaturi\\.cxx\\cmake\\release\\x86\" clean"
+  ],
+  "buildTargetsCommand": "C:\\Users\\aljapalik\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"C:\\Users\\aljapalik\\AndroidStudioProjects\\TEST\\VokaturiAndroid\\vokaturi\\.cxx\\cmake\\release\\x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "vokaturi-lib-Release-x86": {
+      "buildCommand": "C:\\Users\\aljapalik\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"C:\\Users\\aljapalik\\AndroidStudioProjects\\TEST\\VokaturiAndroid\\vokaturi\\.cxx\\cmake\\release\\x86\" vokaturi-lib",
+      "buildType": "release",
+      "toolchain": "1522501328",
+      "abi": "x86",
+      "artifactName": "vokaturi-lib",
+      "files": [
+        {
+          "src": "C:\\Users\\aljapalik\\AndroidStudioProjects\\TEST\\VokaturiAndroid\\vokaturi\\src\\main\\cpp\\Vokaturi9.c",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "C:\\Users\\aljapalik\\AndroidStudioProjects\\TEST\\VokaturiAndroid\\vokaturi\\src\\main\\cpp\\vokaturi-lib.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "C:\\Users\\aljapalik\\AndroidStudioProjects\\TEST\\VokaturiAndroid\\vokaturi\\build\\intermediates\\cmake\\release\\obj\\x86\\libvokaturi-lib.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "1522501328": {
+      "cCompilerExecutable": "C:\\Users\\aljapalik\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "C:\\Users\\aljapalik\\AppData\\Local\\Android\\Sdk\\ndk\\21.0.6113669\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}
