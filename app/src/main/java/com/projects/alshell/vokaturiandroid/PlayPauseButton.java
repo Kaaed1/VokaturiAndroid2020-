@@ -87,7 +87,6 @@ public class PlayPauseButton extends View
             mLeftEdgeAnimator = ValueAnimator.ofFloat(0.f, 0.f);
             mRightEdgeAnimator = ValueAnimator.ofFloat(0.f, 0.f);
         }
-
         mCenterEdgeAnimator.start();
         mLeftEdgeAnimator.start();
         mRightEdgeAnimator.start();

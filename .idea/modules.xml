@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TEST-VokaturiAndroid.iml" filepath="$PROJECT_DIR$/.idea/modules/TEST-VokaturiAndroid.iml" group="VokaturiAndroid" />
       <module fileurl="file://$PROJECT_DIR$/VokaturiAndroid.iml" filepath="$PROJECT_DIR$/VokaturiAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/VokaturiAndroid-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/VokaturiAndroid-app.iml" group="VokaturiAndroid/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vokaturi/com.github.alshell7-vokaturi.iml" filepath="$PROJECT_DIR$/.idea/modules/vokaturi/com.github.alshell7-vokaturi.iml" group="VokaturiAndroid/vokaturi" />
       <module fileurl="file://$PROJECT_DIR$/vokaturi/vokaturi.iml" filepath="$PROJECT_DIR$/vokaturi/vokaturi.iml" />
     </modules>
   </component>

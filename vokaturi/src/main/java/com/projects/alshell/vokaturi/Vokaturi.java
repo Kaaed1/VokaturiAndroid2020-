@@ -16,10 +16,9 @@ import java.io.IOException;
  * A class that provides interface between the native implementation of the Vokaturi emotion analysis engine
  * and offers basic functionality to make use of the library.
  */
-public final class Vokaturi
-{
+public final class Vokaturi {
     /**
-     *A global flag to control whether to do the logging or not by the entire library.
+     * A global flag to control whether to do the logging or not by the entire library.
      */
     public static boolean DEBUG_LOGGING_ENABLED = true;
 
@@ -41,21 +40,20 @@ public final class Vokaturi
         this.mContext = context;
     }
 
-    private void initialise()
-    {
+    private void initialise() {
         System.loadLibrary("vokaturi-lib");
     }
 
     /**
      * This method is used to instantiate the library and provide access to its functions.
+     *
      * @param context Application context
      * @return Instance of the library
      * @throws VokaturiException If dlopen() error occurs or Vokaturi library not found during the initialisation
      * @see VokaturiException#VOKATURI_ERROR
      */
-    public synchronized static Vokaturi getInstance(Context context) throws VokaturiException
-    {
-        if(instance == null){
+    public synchronized static Vokaturi getInstance(Context context) throws VokaturiException {
+        if (instance == null) {
             try {
                 instance = new Vokaturi(context);
                 logD("Vokaturi library initialised successfully");
@@ -67,7 +65,7 @@ public final class Vokaturi
         return instance;
     }
 
-    private void setFileToAnalyse(String fileName){
+    private void setFileToAnalyse(String fileName) {
         logD("Setting file to analyze: " + fileName);
         this.FileToAnalyze = fileName;
     }
@@ -77,12 +75,12 @@ public final class Vokaturi
      * <p>The Vokaturi library currently supports only WAV format file to detect the emotions.
      * <p>The audio data gets recorded in a file created in cache directory of the application.
      * <p>You can retrieve the file using {@link #getRecordedAudio()}, but ONLY after calling {@link #stopListeningAndAnalyze()}.
+     *
      * @throws VokaturiException If audio recording permissions lack for the application
      * @see WavAudioRecorder
      * @see VokaturiException#VOKATURI_DENIED_PERMISSIONS
      */
-    public synchronized void startListeningForSpeech() throws VokaturiException
-    {
+    public synchronized void startListeningForSpeech() throws VokaturiException {
         if (recordingAudioState == RecordingAudioState.NOT_LISTENING) {
             //passing null in suffix to create unique temporary files each time when recording
             logD("About to begin recording the audio to analyze");
@@ -103,13 +101,14 @@ public final class Vokaturi
      * Stops recording the audio, releases the cache file that was used by the {@link WavAudioRecorder} to record.
      * <p>And the file next is used by the library to analyze and detect the emotions from the audio data in the file.
      * <p> Call this only if you have called {@link #startListeningForSpeech()} before.
+     *
      * @return The metrics of the emotions that were processed by the library
      * @throws VokaturiException If there was any exception thrown in the native code while processing the file
      */
     public synchronized EmotionProbabilities stopListeningAndAnalyze() throws VokaturiException {
         if (recordingAudioState == RecordingAudioState.LISTENING) {
             stopRecordingWav();
-            if(instance == null)
+            if (instance == null)
                 throw new VokaturiException(VokaturiException.VOKATURI_ERROR, "Vokaturi library has not been initialised");
             return analyzeForEmotions(mContext, FileToAnalyze);
         } else {
@@ -119,20 +118,18 @@ public final class Vokaturi
 
     /**
      * Gets the WAV file that contains the audio data which was used by the library to process.
+     *
      * @return The latest audio recording
      * @throws VokaturiException If there was no audio file ever processed before
      */
-    public File getRecordedAudio() throws VokaturiException
-    {
-        if (FileToAnalyze == null)
-        {
+    public File getRecordedAudio() throws VokaturiException {
+        if (FileToAnalyze == null) {
             throw new VokaturiException(VokaturiException.VOKATURI_ERROR, "The library has not processed any audio file yet.");
         }
         return new File(FileToAnalyze);
     }
 
-    private void startRecordingInWav() throws VokaturiException
-    {
+    private void startRecordingInWav() throws VokaturiException {
         if (!shouldAskForPermissionsForGrants(mContext)) {
             logD("Permissions have been granted");
             recorder = WavAudioRecorder.getInstance(false);
@@ -148,8 +145,7 @@ public final class Vokaturi
     }
 
     private void stopRecordingWav() {
-        if(recorder != null)
-        {
+        if (recorder != null) {
             recordingAudioState = RecordingAudioState.NOT_LISTENING;
             recorder.stop();
             recorder.reset();
@@ -159,10 +155,8 @@ public final class Vokaturi
         }
     }
 
-    private synchronized EmotionProbabilities analyzeForEmotions(Context context, String fileName) throws VokaturiException
-    {
-        if(shouldAskForPermissionsForGrants(context))
-        {
+    private synchronized EmotionProbabilities analyzeForEmotions(Context context, String fileName) throws VokaturiException {
+        if (shouldAskForPermissionsForGrants(context)) {
             logE("Some denied permissions found");
             throw new VokaturiException(VokaturiException.VOKATURI_DENIED_PERMISSIONS, "File Read Write/Recording Audio permissions not granted");
         }
@@ -174,19 +168,19 @@ public final class Vokaturi
     /**
      * Asynchronous method of analyzing an audio file for emotions.
      * <p>This does not block the GUI thread of the {@link android.app.Activity} while processing.
-     * @param context Application context
+     *
+     * @param context  Application context
      * @param fileName WAV format audio file to process
      * @param callback The result received after analyzing
      * @throws VokaturiException If the application permissions lack to access the file
      * @see VokaturiException#VOKATURI_DENIED_PERMISSIONS
      */
-    public void AnalyzeForEmotionsAsync(Context context, String fileName, VokaturiAsyncResult callback) throws VokaturiException
-    {
-        if(shouldAskForPermissionsForGrants(context))
+    public void AnalyzeForEmotionsAsync(Context context, String fileName, VokaturiAsyncResult callback) throws VokaturiException {
+        if (shouldAskForPermissionsForGrants(context))
             throw new VokaturiException(VokaturiException.VOKATURI_DENIED_PERMISSIONS, "File Read Write/Recording Audio permissions not granted");
         if (fileName != null) {
             if (!TextUtils.isEmpty(fileName)) {
-                if(instance == null)
+                if (instance == null)
                     throw new VokaturiException(VokaturiException.VOKATURI_ERROR, "Vokaturi library has not been initialised");
                 new AsyncEmotionAnalyzerTask(callback).execute(fileName);
             } else {
@@ -197,18 +191,15 @@ public final class Vokaturi
         }
     }
 
-    private static class AsyncEmotionAnalyzerTask extends AsyncTask<String, Void, Void>
-    {
+    private static class AsyncEmotionAnalyzerTask extends AsyncTask<String, Void, Void> {
         private VokaturiAsyncResult resultCallback;
 
-        AsyncEmotionAnalyzerTask(VokaturiAsyncResult callback)
-        {
+        AsyncEmotionAnalyzerTask(VokaturiAsyncResult callback) {
             this.resultCallback = callback;
         }
 
         @Override
-        protected Void doInBackground(String... strings)
-        {
+        protected Void doInBackground(String... strings) {
             String fileToAnalyze = strings[0];
             try {
                 EmotionProbabilities probabilities = analyzeWav(fileToAnalyze);
@@ -221,14 +212,13 @@ public final class Vokaturi
         }
     }
 
-    private static boolean shouldAskForPermissionsForGrants(Context context)
-    {
+    private static boolean shouldAskForPermissionsForGrants(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             logD("Checking for required permissions");
             int resReadExternal = context.checkCallingOrSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE);
             int resWriteExternal = context.checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             int resRecordAudio = context.checkCallingOrSelfPermission(Manifest.permission.RECORD_AUDIO);
-            return  !(resReadExternal == PackageManager.PERMISSION_GRANTED
+            return !(resReadExternal == PackageManager.PERMISSION_GRANTED
                     && resWriteExternal == PackageManager.PERMISSION_GRANTED
                     && resRecordAudio == PackageManager.PERMISSION_GRANTED
             );
@@ -239,9 +229,10 @@ public final class Vokaturi
 
     /**
      * Send debug log message
+     *
      * @param msg message
      */
-    public static void logD(String msg){
+    public static void logD(String msg) {
         if (DEBUG_LOGGING_ENABLED) {
             Log.d(TAG, msg);
         }
@@ -249,9 +240,10 @@ public final class Vokaturi
 
     /**
      * Send error log message
+     *
      * @param msg message
      */
-    public static void logE(String msg){
+    public static void logE(String msg) {
         if (DEBUG_LOGGING_ENABLED) {
             Log.e(TAG, msg);
         }
@@ -259,34 +251,26 @@ public final class Vokaturi
 
     /**
      * Get the dominating emotion from the metrics received from the emotion analysis process
+     *
      * @param emotionProbabilities emotion metrics
      * @return exact emotion that is supposed to be detected
      */
-    public static Emotion extractEmotion(EmotionProbabilities emotionProbabilities)
-    {
+    public static Emotion extractEmotion(EmotionProbabilities emotionProbabilities) {
         Emotion emotion = Emotion.Neutral;
         double capturedEmotion = max(emotionProbabilities.Neutrality,
                 emotionProbabilities.Happiness,
                 emotionProbabilities.Sadness,
                 emotionProbabilities.Anger,
                 emotionProbabilities.Fear);
-        if(capturedEmotion == emotionProbabilities.Neutrality)
-        {
+        if (capturedEmotion == emotionProbabilities.Neutrality) {
             emotion = Emotion.Neutral;
-        } else if(capturedEmotion == emotionProbabilities.Happiness)
-        {
+        } else if (capturedEmotion == emotionProbabilities.Happiness) {
             emotion = Emotion.Happy;
-        }
-        else if(capturedEmotion == emotionProbabilities.Sadness)
-        {
+        } else if (capturedEmotion == emotionProbabilities.Sadness) {
             emotion = Emotion.Sad;
-        }
-        else if(capturedEmotion == emotionProbabilities.Anger)
-        {
+        } else if (capturedEmotion == emotionProbabilities.Anger) {
             emotion = Emotion.Angry;
-        }
-        else if(capturedEmotion == emotionProbabilities.Fear)
-        {
+        } else if (capturedEmotion == emotionProbabilities.Fear) {
             emotion = Emotion.Feared;
         }
 
@@ -305,18 +289,17 @@ public final class Vokaturi
 
     /**
      * Short description of the version and license of the OpenVokaturi library
+     *
      * @return description
      */
-    public static String versionAndLicense()
-    {
+    public static String versionAndLicense() {
         return "OpenVokaturi version 2.1 for open-source projects, 2017-01-13\n" +
-                    "Distributed under the GNU General Public License, version 3 or later";
+                "Distributed under the GNU General Public License, version 3 or later";
     }
 
     private static native EmotionProbabilities analyzeWav(String fileName) throws VokaturiException;
 
-    private enum RecordingAudioState
-    {
+    private enum RecordingAudioState {
         LISTENING,
         NOT_LISTENING
     }
